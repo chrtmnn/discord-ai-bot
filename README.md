@@ -5,7 +5,7 @@
 
 ### Personal fork from [mekb-turtle](https://github.com/mekb-turtle)
 
-- github.com/[mekb-turtle](https://github.com/mekb-turtle)/[discord-ai-bot](https://github.com/mekb-turtle/)
+- [github.com](https://github.com)/[mekb-turtle](https://github.com/mekb-turtle)/[discord-ai-bot](https://github.com/mekb-turtle/discord-ai-bot)
 
 ### Set-up instructions
 
@@ -32,11 +32,11 @@
      1. In Discord, go to User Settings » Advanced, and enable Developer Mode
      2. Right click on a channel you want to use, and click Copy Channel ID
    - You can edit the system message the bot uses, or disable it entirely
-8. Install the required dependencies with `npm i`
-9. Start the bot with `npm start`
+8. Install the required dependencies with `yarn install`
+9. Start the bot with `yarn start`
 10. You can interact with the bot by @mentioning it with your message
-11. Install <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">Stable Diffusion</a>
-12. Run the script `./webui.sh --api --listen`
+11. (optional) Install <a href="https://github.com/AUTOMATIC1111/stable-diffusion-webui">Stable Diffusion</a>
+12. (optional) Run the script `./webui.sh --api --listen`
 
 ### Set-up instructions with Docker
 
