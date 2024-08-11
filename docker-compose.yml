@@ -1,9 +1,8 @@
-version: "3"
-
 services:
-    bot:
-        build: .
-        env_file: .env
-        environment:
-            - OLLAMA=http://host.docker.internal:11434
-        restart: unless-stopped
+  discord-ai-bot:
+    build: .
+    restart: unless-stopped
+    volumes:
+      - ./.env:/home/node/app/.env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
