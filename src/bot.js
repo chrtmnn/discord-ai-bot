@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
 	Client,
 	Events,
@@ -7,20 +8,19 @@ import {
 	REST,
 	Routes
 } from "discord.js";
-import { Logger, LogLevel } from "meklog";
 import dotenv from "dotenv";
-import axios from "axios";
+import { Logger, LogLevel } from "meklog";
 import commands from "./commands/commands.js";
 
 dotenv.config();
 
 const model = process.env.MODEL;
-const servers = process.env.OLLAMA.split(",").map(url => ({ url: new URL(url), available: true }));
-const stableDiffusionServers = process.env.STABLE_DIFFUSION.split(",").map(url => ({ url: new URL(url), available: true }));
+const servers = process.env.OLLAMA?.split(",").filter(str => str !== "").map(url => ({ url: new URL(url), available: true }));
+const stableDiffusionServers = process.env.STABLE_DIFFUSION?.split(",").filter(str => str !== "").map(url => ({ url: new URL(url), available: true }));
 const channels = process.env.CHANNELS.split(",");
 
-if (servers.length == 0) {
-	throw new Error("No servers available");
+if (!servers?.length) {	
+	throw new Error("No servers available");	
 }
 
 let log;
@@ -152,11 +152,12 @@ const rest = new REST({ version: "10" }).setToken(process.env.TOKEN);
 
 client.once(Events.ClientReady, async () => {
 	await client.guilds.fetch();
-	client.user.setPresence({ activities: [], status: "online" });
+	client.user.setPresence({ activities: [], status: "online" });	
 	await rest.put(Routes.applicationCommands(client.user.id), {
-		body: commands
+		// only if stable diffusion servers defined
+		body: stableDiffusionServers?.length ? commands : []
 	});
-
+	
 	log(LogLevel.Info, "Successfully reloaded application slash (/) commands.");
 });
 
